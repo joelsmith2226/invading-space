@@ -12,6 +12,8 @@ const MAX_ENEMIES = 9;
 
 var dummy;
 
+var keyFlag = false;
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   // Method 1 - Using width, height for each frame and number of frames
@@ -24,7 +26,7 @@ function setup() {
   }
   dummy = createSprite(100,100, 30, 30);
   dummy.addImage(loadImage(sprites[0]));
-  
+
   //Portfolio link
   let link = createA("https://joelsmith2226.github.io", "Back to portfolio");
   link.position(displayWidth-link.width*2,10);
@@ -105,6 +107,7 @@ function draw() {
 }
 
 function keyReleased() {
+   keyFlag = false;
    if (keyCode === RIGHT_ARROW || keyCode === LEFT_ARROW){
       ship.setXVel(0);
    }
@@ -115,21 +118,24 @@ function keyReleased() {
 }
 
 function keyPressed() {
-   if (keyCode === RIGHT_ARROW){
-      ship.setXVel(1);
-   } else if (keyCode === LEFT_ARROW){
-      ship.setXVel(-1);
-   }
+   keyFlag = true;
+   while(keyFlag){
+      if (keyCode === RIGHT_ARROW){
+         ship.setXVel(ship.getXVel() + 2);
+      } else if (keyCode === LEFT_ARROW){
+         ship.setXVel(ship.getXVel() -2);
+      }
 
-   if (keyCode === UP_ARROW){
-      ship.setYVel(-1);
-   } else if (keyCode === DOWN_ARROW){
-      ship.setYVel(1);
-   }
+      if (keyCode === UP_ARROW){
+         ship.setYVel(ship.getYVel()-2);
+      } else if (keyCode === DOWN_ARROW){
+         ship.setYVel(ship.getXVel()+2);
+      }
 
-   // Shoot bullet
-   if (key === ' '){
-      bullets.push(new Bullet(ship.x, ship.y-10, 2));
+      // Shoot bullet
+      if (key === ' '){
+         bullets.push(new Bullet(ship.x, ship.y-10, 2));
+      }
    }
 }
 

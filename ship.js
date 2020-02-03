@@ -22,6 +22,13 @@ function Ship() {
    this.setYVel = function(dir) {
       this.yvel = dir;
    }
+   this.getXVel = function() {
+      return this.xvel;
+   }
+
+   this.getYVel = function() {
+      return this.yvel;
+   }
 
    this.scoreBonus = function(bonus){
       switch(bonus) {
