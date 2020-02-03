@@ -24,6 +24,10 @@ function setup() {
   }
   dummy = createSprite(100,100, 30, 30);
   dummy.addImage(loadImage(sprites[0]));
+  
+  //Portfolio link
+  let link = createA("https://joelsmith2226.github.io", "Back to portfolio");
+  link.position(displayWidth-link.width*2,10);
 }
 
 function draw() {
