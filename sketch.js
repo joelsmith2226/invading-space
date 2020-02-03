@@ -8,22 +8,29 @@ var gameWidth = 300;
 var enemyRows = 4
 var enemiesPerRow = 5
 
-const MAX_ENEMIES = 9
+const MAX_ENEMIES = 9;
+
+var dummy;
 
 function setup() {
-  createCanvas(303, 600);
+  createCanvas(windowWidth, windowHeight);
+  // Method 1 - Using width, height for each frame and number of frames
+  sprites = loadSpriteSheet('assets/sprite-sheet.png', 18, 18, 26*12);
   ship = new Ship();
   for (var i = 0; i < enemiesPerRow; i++){
      for (var j = 0; j < enemyRows; j++){
         enemies.push(new Enemy(i*30 + 30, j*30 + 30, ship.level));
      }
   }
+  dummy = createSprite(100,100, 30, 30);
+  dummy.addImage(loadImage(sprites[0]));
 }
 
 function draw() {
    background(0);
-   drawFrame();
-
+   translate(windowWidth/2 - gameWidth/2,0);
+   drawArcadeFrame();
+   drawSprites();
    // Ship
    ship.move();
    ship.show();
@@ -143,7 +150,7 @@ function newWave(){
    }
 }
 
-function drawFrame() {
+function drawArcadeFrame() {
    stroke(0, 255, 0);
    strokeWeight(3);
    noFill();
