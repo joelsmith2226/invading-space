@@ -1,3 +1,6 @@
+var shipWidth = 20;
+var shipHeight = 20;
+
 function Ship() {
    this.x = gameWidth/2;
    this.y = gameHeight;
@@ -7,7 +10,7 @@ function Ship() {
    this.level = 1;
    this.show = function() {
       fill(255);
-      rect(this.x, this.y-20, 20, 20);
+      rect(this.x, this.y-shipHeight, shipWidth, shipHeight);
    }
 
    this.move = function() {
@@ -36,6 +39,7 @@ function Ship() {
             this.score += 50;
          case "Wave Cleared":
             this.score += 200;
+            this.level += 0.1;
       }
    }
 }

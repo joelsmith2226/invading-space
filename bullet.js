@@ -33,4 +33,12 @@ function Bullet(x, y, dir) {
          return false;
       }
    }
+
+   this.getX = function() {
+      return this.x;
+   }
+
+   this.getY = function() {
+      return this.y;
+   }
 }

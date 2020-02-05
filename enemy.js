@@ -14,6 +14,11 @@ function Enemy(x, y, level) {
       ellipse(this.x, this.y, this.r*2, this.r*2);
    }
 
+   this.targetShow = function() {
+      fill(0, 255, 255);
+      ellipse(this.x, this.y, this.r*2, this.r*2);
+   }
+
    this.move = function() {
       this.x += this.direction*0.4*this.velocity;
    }
@@ -21,7 +26,7 @@ function Enemy(x, y, level) {
    this.changeDirn = function() {
       this.direction *= -1;
       this.y += 10;
-      this.velocity += 0.1 * level;
+      this.velocity += 0.4 * level;
    }
 
    this.shoot = function() {
@@ -31,5 +36,13 @@ function Enemy(x, y, level) {
       } else {
          return false;
       }
+   }
+
+   this.getX = function() {
+      return this.x;
+   }
+
+   this.getY = function() {
+      return this.y;
    }
 }
