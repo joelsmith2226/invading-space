@@ -1,36 +1,49 @@
-var shipWidth = 20;
-var shipHeight = 20;
+const SHIP_WIDTH = 20;
+const SHIP_HEIGHT = 20;
 
 function Ship() {
-   this.x = gameWidth/2;
-   this.y = gameHeight;
-   this.xvel = 0;
-   this.yvel = 0;
+   this.sprite = createSprite(gameWidth/2, gameHeight, SHIP_WIDTH, SHIP_HEIGHT);
+   this.sprite.velocity.x = 0;
+   this.sprite.velocity.y = 0;
+   this.sprite.setCollider('circle', 0, 0, SHIP_WIDTH/2);
+   this.sprite.addAnimation("default-ship", shipAnimation);
+   this.sprite.rotation = -90;
    this.score = 0;
    this.level = 1;
    this.show = function() {
       fill(255);
-      rect(this.x, this.y-shipHeight, shipWidth, shipHeight);
+      drawSprite(this.sprite);
    }
 
    this.move = function() {
-      this.x += this.xvel;
-      this.y += this.yvel;
+      this.sprite.position.x += this.sprite.velocity.x;
+      this.sprite.position.y += this.sprite.velocity.y;
    }
 
    this.setXVel = function(dir) {
-      this.xvel = dir;
+      this.sprite.velocity.x = dir;
    }
 
    this.setYVel = function(dir) {
-      this.yvel = dir;
+      this.sprite.velocity.y = dir;
    }
    this.getXVel = function() {
-      return this.xvel;
+      return this.sprite.velocity.x;
    }
 
    this.getYVel = function() {
-      return this.yvel;
+      return this.sprite.velocity.y;
+   }
+
+   this.getX = function() {
+      return this.sprite.position.x;
+   }
+
+   this.getY = function() {
+      return this.sprite.position.y;
+   }
+   this.getScore = function() {
+      return this.score;
    }
 
    this.scoreBonus = function(bonus){
@@ -41,5 +54,9 @@ function Ship() {
             this.score += 200;
             this.level += 0.1;
       }
+   }
+
+   this.destroy = function(){
+      this.sprite.remove();
    }
 }

@@ -19,13 +19,12 @@ function Bullet(x, y, dir) {
    }
 
    this.hit = function(obj) {
-      var d = dist(this.x, this.y, obj.x, obj.y);
+      var d = dist(this.x, this.y, obj.getX(), obj.getY());
       var hitBox = 0;
       if (obj instanceof Enemy){
-         hitBox = obj.r;
+         hitBox = ENEMY_WIDTH;
       } else if (obj instanceof Ship){
-         hitBox = 20;
-         // console.log(hitBox, obj.r, d)
+         hitBox = SHIP_WIDTH;
       }
       if (d < hitBox + this.r){
          return true;

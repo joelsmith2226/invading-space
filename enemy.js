@@ -1,32 +1,34 @@
 // const RIGHT = 1;
 // const LEFT = -l
 
+const ENEMY_WIDTH = 10;
+const ENEMY_HEIGHT = 10;
+
 function Enemy(x, y, level) {
-   this.x = x;
-   this.y = y;
-   this.r = 10;
+   this.sprite = createSprite(x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
+   this.sprite.setCollider('circle', 0, 0, ENEMY_WIDTH/2);
+   this.sprite.addAnimation("default-enemy", enemyAnimation);
+   this.level = level;
    this.direction = 1;
    this.velocity = 1;
-   this.level = level;
-
    this.show = function() {
-      fill(0, 255, 0);
-      ellipse(this.x, this.y, this.r*2, this.r*2);
+      fill(255);
+      drawSprite(this.sprite);
    }
 
    this.targetShow = function() {
-      fill(0, 255, 255);
-      ellipse(this.x, this.y, this.r*2, this.r*2);
+      fill(255,0,0);
+      ellipse(this.getX(), this.getY(), 2, 2);
    }
 
    this.move = function() {
-      this.x += this.direction*0.4*this.velocity;
+      this.sprite.position.x += this.direction*0.4*this.velocity;
    }
 
    this.changeDirn = function() {
       this.direction *= -1;
-      this.y += 10;
-      this.velocity += 0.4 * level;
+      this.sprite.position.y += 10;
+      this.velocity += 0.04 * level;
    }
 
    this.shoot = function() {
@@ -39,10 +41,18 @@ function Enemy(x, y, level) {
    }
 
    this.getX = function() {
-      return this.x;
+      return this.sprite.position.x;
    }
 
    this.getY = function() {
-      return this.y;
+      return this.sprite.position.y;
+   }
+
+   this.getDirection = function() {
+      return this.direction;
+   }
+
+   this.destroy = function() {
+      this.sprite.remove();
    }
 }

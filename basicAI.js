@@ -35,7 +35,7 @@ function BasicAI() {
       // If death imminent, MOVE
       } else {
          console.log("Hey death imminent");
-         if (this.x > 0){
+         if (this.getX() > 0){
             this.setXVel(1);
          } else {
             this.setXVel(-1);
@@ -55,8 +55,8 @@ function BasicAI() {
       let closestDist = windowHeight*2;
       let closestEnemy = enemies[0];
       for (var i = 0; i < enemies.length; i++){
-         let currEnemyDist = Math.sqrt(Math.pow(this.x - enemies[i].getX(), 2) +
-                                       Math.pow(this.y - enemies[i].getY(), 2));
+         let currEnemyDist = Math.sqrt(Math.pow(this.getX() - enemies[i].getX(), 2) +
+                                       Math.pow(this.getY() - enemies[i].getY(), 2));
          if (currEnemyDist < closestDist) {
             closestDist = currEnemyDist;
             closestEnemy = enemies[i];
@@ -68,8 +68,8 @@ function BasicAI() {
 
    this.isDeathImminent = function(bullets){
       for (var i = 0; i < bullets.length; i++){
-         if (Math.abs(this.x - bullets[i].getX()) < 10 &&
-             Math.abs(this.y - bullets[i].getY()) < 10){
+         if (Math.abs(this.getX() - bullets[i].getX()) < 10 &&
+             Math.abs(this.getY() - bullets[i].getY()) < 10){
             return true;
          }
       }
@@ -77,7 +77,7 @@ function BasicAI() {
    }
 
    this.directionToEnemy = function(closestEnemy){
-      if (this.x - closestEnemy.getX() > 0){
+      if (this.getX() - closestEnemy.getX() > 0){
          this.setXVel(-1);
       } else {
          this.setXVel(1);
@@ -86,17 +86,17 @@ function BasicAI() {
 
    this.shoot = function(){
       if (shotCooldownTimer <= 0) {
-         bullets.push(new Bullet(this.x, this.y-10, 2));
+         bullets.push(new Bullet(this.getX(), this.getY()-10, 2));
          shotCooldownTimer += SHOT_COOLDOWN;
       }
    }
 
    this.isLegalMove = function(){
-      if (this.getXVel() > 0 && this.x + shipWidth > gameWidth + 5){
+      if (this.getXVel() > 0 && this.getX() + SHIP_WIDTH > gameWidth + 5){
          this.setXVel(-1);
          this.illegalCooldown = -ILLEGAL_COOLDOWN;
          console.log("ILLEGAL RIGHT", this.illegalCooldown);
-      } else if (this.getXVel() < 0 && this.x < 5) {
+      } else if (this.getXVel() < 0 && this.getX() < 5) {
          this.setXVel(1);
          this.illegalCooldown = ILLEGAL_COOLDOWN;
          console.log("ILLEGAL LEFT", this.illegalCooldown);
