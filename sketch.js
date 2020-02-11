@@ -16,6 +16,7 @@ var shotCooldownTimer = 0;
 const SHOT_COOLDOWN = 40;
 var highScore = 0;
 var font;
+var realWidth, realHeight;
 
 function preload() {
    shipAnimation = loadAnimation('assets/Ship/f1.png','assets/Ship/f2.png',
@@ -26,6 +27,8 @@ function preload() {
 
 function setup() {
    createCanvas(windowWidth, windowHeight);
+   realWidth = windowWidth;
+   realHeight = windowHeight;
    // Method 1 - Using width, height for each frame and number of frames
    sprites = loadSpriteSheet('assets/sprite-sheet.png', 18, 18, 26*12);
    if (userActivated){
@@ -38,43 +41,21 @@ function setup() {
          enemies.push(new Enemy(i*30 + 30, j*30 + 30, ship.level));
       }
    }
+   setupButtons();
 
-   //Setup buttons
-   basicAIButton = createButton("Basic AI");
-   basicAIButton.position(20,10);
-   basicAIButton.mousePressed(activateBasicAI);
-   basicAIButton.class('start-btn');
-   userButton = createButton("User");
-   userButton.position(20,60);
-   userButton.mousePressed(activateUser);
-   userButton.class('start-btn');
-   // background
-   bgImg = loadImage('assets/Backgrounds/starfield.png');
-
-   //Portfolio link
-   let portKey = createButton("BACK TO <br>PORTFOLIO");
-   portKey.class('start-btn');
-   portKey.position(displayWidth-portKey.width*2,10);
-   //portKey.mousePressed();
-   //let link = createA("https://joelsmith2226.github.io", "Back to portfolio");
 }
 
-function activateBasicAI(){
-   if (userActivated){
-      userActivated = false;
-      reset();
-   }
-}
-
-function activateUser(){
-   if (!userActivated){
-      userActivated = true;
-      reset();
-   }
-}
 
 function draw() {
    background(0);
+
+   if (realWidth != windowWidth || realHeight != windowHeight){
+      resetButtons();
+      realWidth = windowWidth;
+      realHeight = windowHeight;
+      createCanvas(windowWidth, windowHeight);
+   }
+
    translate(windowWidth/2 - gameWidth/2,0);
    drawArcadeFrame();
    drawSprites();
