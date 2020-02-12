@@ -1,4 +1,5 @@
 var portKey;
+var left, right, fire;
 function setupButtons() {
    //Setup buttons
    basicAIButton = createButton("Basic AI");
@@ -16,12 +17,30 @@ function setupButtons() {
    portKey = createA("https://joelsmith2226.github.io", "Back to portfolio");
    portKey.class('start-btn link');
    portKey.position(windowWidth-200,10);
+
+   left = createButton("🡄");
+   left.position(windowWidth/2 - left.width * 2.5, gameHeight + 20);
+   left.class('video-game-button');
+   right = createButton("🡆");
+   right.position(windowWidth/2 + 0.75*left.width, gameHeight + 20);
+   right.class('video-game-button');
+   fire = createButton("FIRE");
+   fire.position(windowWidth/2 - left.width, gameHeight + 20);
+   fire.class('video-game-button fire');
+   fire.mousePressed(firePressed);
+   left.mousePressed(moveLeft);
+   right.mousePressed(moveRight);
+   left.mouseReleased(haltMovement);
+   right.mouseReleased(haltMovement);
 }
 
 function resetButtons() {
    basicAIButton.remove();
    userButton.remove();
    portKey.remove();
+   left.remove();
+   right.remove();
+   fire.remove();
    setupButtons();
 }
 
@@ -38,4 +57,20 @@ function activateUser(){
       userActivated = true;
       reset();
    }
+}
+
+function moveLeft(){
+   ship.setMove(-1);
+}
+
+function moveRight(){
+   ship.setMove(1);
+}
+
+function firePressed(){
+   ship.fire();
+}
+
+function haltMovement(){
+   ship.setMove(0);
 }

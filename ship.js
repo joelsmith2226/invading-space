@@ -59,4 +59,15 @@ function Ship() {
    this.destroy = function(){
       this.sprite.remove();
    }
+
+   this.setMove = function(dir){
+      this.setXVel(dir);
+   }
+
+   this.fire = function(){
+      if (shotCooldownTimer <= 0 && bullets){
+         bullets.push(new Bullet(this.getX(), this.getY()-10, 2));
+         shotCooldownTimer += SHOT_COOLDOWN;
+      }
+   }
 }

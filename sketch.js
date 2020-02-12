@@ -2,21 +2,23 @@ var ship, shipAnimation, enemyAnimation, bgImg;
 var enemies = [];
 var bullets = [];
 var enemyBullets = [];
-var gameHeight = 480;
-var gameWidth = 300;
+var gameHeight, gameWidth, realWidth, realHeight;
+
 var enemyRows = 4;
 var enemiesPerRow = 5;
 var userActivated = true;
-const MAX_ENEMIES = 9;
 var keyFlag = false;
-var basicAIButton;
-var userButton;
 var specialEnemy;
+var basicAIButton, userButton;
+
 var shotCooldownTimer = 0;
-const SHOT_COOLDOWN = 40;
 var highScore = 0;
-var font;
-var realWidth, realHeight;
+
+const SHOT_COOLDOWN = 40;
+const MAX_ENEMIES = 9;
+const DEFAULT_WIDTH = 300;
+const DEFAULT_HEIGHT = 480;
+
 
 function preload() {
    shipAnimation = loadAnimation('assets/Ship/f1.png','assets/Ship/f2.png',
@@ -26,11 +28,7 @@ function preload() {
 }
 
 function setup() {
-   createCanvas(windowWidth, windowHeight);
-   realWidth = windowWidth;
-   realHeight = windowHeight;
-   // Method 1 - Using width, height for each frame and number of frames
-   sprites = loadSpriteSheet('assets/sprite-sheet.png', 18, 18, 26*12);
+   setupCanvas();
    if (userActivated){
       ship = new Ship();
    } else {
@@ -45,18 +43,39 @@ function setup() {
 
 }
 
+function setupCanvas(){
+   createCanvas(windowWidth, windowHeight);
+   console.log(gameHeight, gameWidth);
+   //In a phone
+   if (windowHeight > windowWidth){
+      gameHeight = windowHeight * 2/5;
+      gameWidth = windowWidth * 1/2;
+
+   // Desktop
+   } else if (windowHeight > DEFAULT_HEIGHT && windowWidth > DEFAULT_WIDTH) {
+      gameHeight = DEFAULT_HEIGHT;
+      gameWidth = DEFAULT_WIDTH;
+
+   // Educated guess
+   } else {
+      gameHeight = windowHeight * 2/3;
+      gameWidth = windowWidth * 1/3;
+   }
+
+   realWidth = windowWidth;
+   realHeight = windowHeight;
+}
+
 
 function draw() {
    background(0);
 
    if (realWidth != windowWidth || realHeight != windowHeight){
+      setupCanvas();
       resetButtons();
-      realWidth = windowWidth;
-      realHeight = windowHeight;
-      createCanvas(windowWidth, windowHeight);
    }
-
-   translate(windowWidth/2 - gameWidth/2,0);
+   printInstructions();
+   translate(windowWidth/2 - gameWidth/2,10);
    drawArcadeFrame();
    drawSprites();
 
@@ -162,9 +181,9 @@ function keyReleased() {
 function keyPressed() {
    if (userActivated){
       if (keyCode === RIGHT_ARROW){
-         ship.setXVel(1);
+         ship.setMove(1);
       } else if (keyCode === LEFT_ARROW){
-         ship.setXVel(-1);
+         ship.setMove(-1);
       }
 
       if (keyCode === UP_ARROW){
@@ -174,9 +193,8 @@ function keyPressed() {
       }
 
       // Shoot bullet
-      if (key === ' ' && shotCooldownTimer <= 0){
-         bullets.push(new Bullet(ship.getX(), ship.getY()-10, 2));
-         shotCooldownTimer += SHOT_COOLDOWN;
+      if (key === ' '){
+         ship.fire(bullets);
       }
    }
 }
@@ -226,7 +244,19 @@ function printScore() {
    textSize(20);
    fill(0, 255, 0);
    textAlign(CENTER);
-   textFont("Press Start 2P");
-   text('Current Score: ' + ship.getScore(), gameWidth/2, height - 30);
-   text('Highest Score: ' + highScore, gameWidth/2, height - 60);
+   textFont("Lilita One");
+   text('Current Score: ' + ship.getScore(), gameWidth/2, gameHeight +fire.height*3.5);
+   text('Highest Score: ' + highScore, gameWidth/2, gameHeight +fire.height*3.5 + 30);
+}
+
+function printInstructions() {
+   textSize(20);
+   fill(0, 255, 0);
+   textAlign(LEFT);
+   textFont("Lilita One");
+   text('Instructions', 25, 150);
+   textSize(14);
+   text('Arrow keys to move', 25, 180);
+   text('Spacebar to fire', 25, 210);
+   text('Or use UI buttons', 25, 240);
 }
