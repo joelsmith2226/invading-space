@@ -1,5 +1,19 @@
+/*
+ * Joel Smith
+ * Invading Space
+ * UI.js
+ * This file tracks the UI of the application (buttons, links, backgrounds etc.)
+ */
+
+// GLOBALS
 var portKey;
 var left, right, fire;
+
+/*
+ * SetupButtons() initialises all of the buttons required for the application
+ * This includes fire, left and right buttons for ship operation, mode selection buttons
+ * and portfolio link button
+ */
 function setupButtons() {
    //Setup buttons
    basicAIButton = createButton("Basic AI");
@@ -30,12 +44,17 @@ function setupButtons() {
    right.position(windowWidth/2 + 1.8*right.width, gameHeight + 20);
    right.class('video-game-button');
 
+   // function events
    left.mousePressed(moveLeft);
    right.mousePressed(moveRight);
    left.mouseReleased(haltMovement);
    right.mouseReleased(haltMovement);
 }
 
+/*
+ * resetButtons() removes all buttons in the event of a display change event where
+ * buttons' positions will need to be altered
+ */
 function resetButtons() {
    basicAIButton.remove();
    userButton.remove();
@@ -46,7 +65,9 @@ function resetButtons() {
    setupButtons();
 }
 
-
+/*
+ * activateBasicAI() will shift into basicAI mode after the basicAI button has been pressed
+ */
 function activateBasicAI(){
    if (userActivated){
       userActivated = false;
@@ -54,6 +75,9 @@ function activateBasicAI(){
    }
 }
 
+/*
+ * activateUser() will shift into user mode after the user button has been pressed
+ */
 function activateUser(){
    if (!userActivated){
       userActivated = true;
@@ -61,18 +85,30 @@ function activateUser(){
    }
 }
 
+/*
+ * moveLeft() will move the ship to the left when the left arrow is pressed
+ */
 function moveLeft(){
    ship.setMove(-1);
 }
 
+/*
+ * moveRight() will move the ship to the right when the right arrow is pressed
+ */
 function moveRight(){
    ship.setMove(1);
 }
 
+/*
+ * firePressed() will fire a bullet from the user when the fire button pressed
+ */
 function firePressed(){
    ship.fire();
 }
 
+/*
+ * haltMovement() will set the movement to 0 when the movement arrows are released
+ */
 function haltMovement(){
    ship.setMove(0);
 }

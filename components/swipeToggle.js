@@ -1,3 +1,12 @@
+/*
+ * Joel Smith
+ * Invading Space
+ * swipeToggle.js
+ * This file is used for mobile swipes up and down. This was to create
+ * a revealable menu for toggling certain settings (such as no animated sprites)
+ * This will be a future feature, currently not implemented.
+ */
+
 document.addEventListener('touchstart', handleTouchStart, false);
 document.addEventListener('touchmove', handleTouchMove, false);
 
