@@ -5,7 +5,7 @@ Invading Space is a space invaders clone which was built for the purpose of AI e
 Visit it at [joelsmithdev.com/invading-space](https://joelsmithdev.com/invading-space/). This project was influenced by [Code Bullet's AI Projects](https://www.youtube.com/channel/UC0e3QhIYukixgh5VVpKHH9Q)
 
 ## Features
-#### Modesxxx
+#### Modes
 Currently, there are two game modes
 
 1. **User** is the traditional space invaders format, with rows of enemies descending on a lone ship controlled by the user. The user can move in all directions (as opposed to the classic) and firing is limited by a cooldown timer.
@@ -13,7 +13,7 @@ With each successive wave, the ship levels up and the enemies grow in number and
 
 |**User Mode**           |
 | :---: |
-|<img src="https://github.com/joelsmith2226/invading-space/blob/master/images/gifs/user.gif" width="600" height="280">|
+|<img src="https://github.com/joelsmith2226/invading-space/blob/master/assets/gifs/user.gif" width="600" height="280">|
 
 2. **BasicAI** is an AI created from a simple algorithm (not generated using NN or genetic algorithms), but finding the closest enemy and targetting that enemy. It will also avoid imminent death
 
