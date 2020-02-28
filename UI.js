@@ -17,17 +17,19 @@ function setupButtons() {
    portKey = createA("https://joelsmith2226.github.io", "Back to portfolio");
    portKey.class('start-btn link');
    portKey.position(windowWidth-200,10);
-
-   left = createButton("🡄");
-   left.position(windowWidth/2 - left.width * 2.5, gameHeight + 20);
-   left.class('video-game-button');
-   right = createButton("🡆");
-   right.position(windowWidth/2 + 0.75*left.width, gameHeight + 20);
-   right.class('video-game-button');
    fire = createButton("FIRE");
-   fire.position(windowWidth/2 - left.width, gameHeight + 20);
+   fire.position(windowWidth/2 - 3/5 * fire.width, gameHeight + 20);
    fire.class('video-game-button fire');
    fire.mousePressed(firePressed);
+   left = createButton('');
+   left.html('<i class="fa fa-arrow-left"></i>')
+   left.position(windowWidth/2 - left.width * 3 - 3/5 * fire.width, gameHeight + 20);
+   left.class('video-game-button');
+   right = createButton("");
+   right.html('<i class="fa fa-arrow-right"></i>')
+   right.position(windowWidth/2 + 1.8*right.width, gameHeight + 20);
+   right.class('video-game-button');
+
    left.mousePressed(moveLeft);
    right.mousePressed(moveRight);
    left.mouseReleased(haltMovement);
